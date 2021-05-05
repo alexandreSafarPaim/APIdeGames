@@ -55,16 +55,21 @@ router.delete('/games/:id', (req, res) => {
     }
 })
 
-router.put('/games', (req, res) => {
-    const { id, title, year, price } = req.body
+router.put('/games/:id', (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.sendStatus(400);
+    }
+
+    let id = parseInt(req.params.id);
+
+    const { title, year, price } = req.body
     const game = {
-        id,
         title,
         year,
         price
     }
     try {
-        gamesController.EditGame(DB, game)
+        gamesController.EditGame(DB, id, game)
         res.status(200).json(game);
     } catch (err) {
         res.sendStatus(400);

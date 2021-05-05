@@ -22,12 +22,14 @@ function DeleteGame(DB, id) {
     DB.games.splice(index, 1);
 }
 
-function EditGame(DB, game) {
-    let index = DB.games.findIndex(g => g.id === game.id);
+function EditGame(DB, id, game) {
+    let index = DB.games.findIndex(g => g.id === id);
 
     if (index == -1) throw new Error();
 
-    DB.games[index] = game;
+    gameEdited = { id, ...game }
+
+    DB.games[index] = gameEdited;
 
 }
 
