@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const DB = require('../database/gamesDB');
 const gamesController = require('../controllers/games');
+const GameController = require('../controllers/GameController');
 
 router.get('/games', (req, res) => {
     res
@@ -24,21 +25,7 @@ router.get('/games/:id', (req, res) => {
 
 })
 
-router.post('/games', (req, res) => {
-    const { id, title, year, price } = req.body
-    const game = {
-        id,
-        title,
-        year,
-        price
-    }
-    try {
-        const newGame = gamesController.CreateNewGame(DB, game)
-        res.status(200).json(newGame);
-    } catch (err) {
-        res.sendStatus(400);
-    }
-})
+router.post('/games', GameController.store)
 
 router.delete('/games/:id', (req, res) => {
     if (isNaN(req.params.id)) {

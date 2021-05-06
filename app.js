@@ -1,6 +1,8 @@
 const express = require('express');
 const routes = require('./src/routes/games');
 
+require('./src/database');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
