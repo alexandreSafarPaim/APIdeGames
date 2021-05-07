@@ -10,7 +10,7 @@ module.exports = {
             if (game == undefined) throw new StatusError(400, 'The game cannot be added ')
             return res.json(game);
         } catch (err) {
-            return res.status(err.status).send(err.message);
+            return res.status(err.status).send({ error: err.message });
         }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
             if (game == undefined) throw new StatusError(404, 'Game not found');
             return res.json(game);
         } catch (err) {
-            return res.status(err.status).send(err.message);
+            return res.status(err.status).send({ error: err.message });
         }
     },
 
@@ -36,9 +36,9 @@ module.exports = {
             if (isNaN(req.params.id)) throw new StatusError(400, 'ID must be a the numeric type');
             const id = req.params.id;
             if (await Game.destroy({ where: { id } }) === 0) throw new StatusError(404, 'Game not found');
-            return res.send('Game has been deleted');
+            return res.send({ message: 'Game has been deleted' });
         } catch (err) {
-            return res.status(err.status).send(err.message);
+            return res.status(err.status).send({ error: err.message });
         }
     },
 
@@ -52,7 +52,7 @@ module.exports = {
             const game = await Game.findOne({ where: { id } })
             return res.json(game);
         } catch (err) {
-            return res.status(err.status).send(err.message);
+            return res.status(err.status).send({ error: err.message });
         }
     }
 };
