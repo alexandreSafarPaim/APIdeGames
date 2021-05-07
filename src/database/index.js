@@ -6,6 +6,7 @@ const User = require('../models/User');
 
 const connection = new Sequelize(dbConfig);
 
+//Models conection in DB
 Game.init(connection);
 User.init(connection);
 

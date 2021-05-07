@@ -10,6 +10,7 @@ module.exports = {
             if (!name || !email || !password) throw new StatusError(400, 'Some information undefined');
             if (name === "" || email === "" || password === "") throw new StatusError(400, 'Some information undefined');
 
+            //encrypting password
             const salt = await bcrypt.genSalt(10);
             const passwordHash = await bcrypt.hash(password, salt);
 
@@ -17,6 +18,7 @@ module.exports = {
 
             if (user == undefined) throw new StatusError(500, 'Database Error');
 
+            //removing password to display user information
             user.password = undefined
 
             return res.json(user);
@@ -27,6 +29,7 @@ module.exports = {
 
     async listAll(req, res) {
         try {
+            //find all users, excluding password
             const users = await User.findAll({ attributes: { exclude: 'password' } });
 
             if (users == undefined) throw new StatusError(500, 'Database Error');

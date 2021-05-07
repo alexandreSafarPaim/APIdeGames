@@ -1,5 +1,6 @@
 const path = require('path');
 
+//configuration to use sequelize-cli
 module.exports = {
     'config': path.resolve(__dirname, 'src', 'config', 'database.js'),
     'models-path': path.resolve(__dirname, 'src', 'models'),

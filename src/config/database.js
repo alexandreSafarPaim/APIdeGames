@@ -1,9 +1,10 @@
 const path = require('path');
 
+//Sequelize configuration (file directory defined in .sequelizerc)
 module.exports = {
     dialect: 'sqlite',
     dialectOptions: {
-        // useUTC: false, //for reading from database
+        useUTC: false,
         dateStrings: true,
         typeCast: true,
         timezone: "-03:00"
