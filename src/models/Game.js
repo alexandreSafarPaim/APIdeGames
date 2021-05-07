@@ -8,7 +8,7 @@ class Game extends Model {
             price: DataTypes.INTEGER
         }, {
             sequelize
-        })
+        });
     }
 }
 

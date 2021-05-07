@@ -5,6 +5,5 @@ module.exports = {
     storage: path.resolve(__dirname, '..', 'database', 'GamesDB.sqlite'),
     define: {
         timestamps: true,
-        underscored: true
     }
 };
