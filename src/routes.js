@@ -20,5 +20,7 @@ router.delete('/user/:id', auth, UserController.delete)
 
 //Auth Routes
 router.post('/auth', AuthController.login)
+router.post('/refresh-auth', AuthController.loginWithRefreshToken)
+
 
 module.exports = router;

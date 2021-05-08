@@ -20,8 +20,9 @@ module.exports = (req, res, next) => {
         //jwt token verification
         jwt.verify(token, authConfig.secret, (err, data) => {
             if (err) throw new StatusError(401, 'Invalid token');
-            req.userId = data.id;
-            return next();
+
+            res.userId = data.id;
+            next();
         })
 
     } catch (err) {

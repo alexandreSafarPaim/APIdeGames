@@ -14,19 +14,59 @@ module.exports = {
             const user = await User.findOne({ where: { email } })
 
             if (!user) throw new StatusError(404, 'User not found');
+
+            //decrypt password
             if (!await bcrypt.compare(password, user.password))
                 throw new StatusError(401, 'Invalid credentials');
 
-            user.password = undefined;
-
+            //jwt token generation
             const token = jwt.sign({ id: user.id }, authConfig.secret, {
                 expiresIn: "1d"
             });
 
-            res.status(200).json({ token });
+            const refreshToken = jwt.sign({}, authConfig.refreshSecret, {
+                expiresIn: "1d"
+            });
+
+            await User.update({ refreshToken }, { where: { id: user.id } })
+
+            res.status(200).json({ userID: user.id, token, refreshToken });
         } catch (err) {
             return res.status(err.status).send({ error: err.message });
         }
 
+    },
+
+    async loginWithRefreshToken(req, res) {
+        try {
+            const { id, refreshToken } = req.body;
+
+            if (id == undefined || refreshToken == undefined)
+                throw new StatusError(400, 'Undefined credentials');
+
+            const user = await User.findOne({ where: { id } })
+
+            if (!user) throw new StatusError(404, 'User not found');
+
+            if (refreshToken !== user.refreshToken)
+                throw new StatusError(401, 'Invalid credentials');
+
+
+            //jwt token generation
+            const token = jwt.sign({ id: user.id }, authConfig.secret, {
+                expiresIn: "1h"
+            });
+
+            const newRefreshToken = jwt.sign({}, authConfig.refreshSecret, {
+                expiresIn: "1d"
+            });
+
+            await User.update({ refreshToken: newRefreshToken }, { where: { id: user.id } })
+
+            res.status(200).json({ token, refreshToken });
+
+        } catch (err) {
+            return res.status(err.status).send({ error: err.message });
+        }
     }
 }
