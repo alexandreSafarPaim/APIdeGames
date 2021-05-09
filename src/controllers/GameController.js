@@ -22,7 +22,7 @@ module.exports = {
             game.setDataValue('links', [{
                     href: `http://localhost:3000/${game.id}`,
                     method: 'GET',
-                    rel: 'find-game-by-id'
+                    rel: 'game-by-id'
                 },
                 {
                     href: `http://localhost:3000/${game.id}`,

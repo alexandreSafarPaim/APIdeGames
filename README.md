@@ -49,7 +49,24 @@ Lista todos os usuários cadastrados
     "name": "Nome",
     "email": "nome@email.com",
     "createdAt": "2021-05-09T11:17:46.511Z",
-    "updatedAt": "2021-05-09T11:17:56.995Z"
+    "updatedAt": "2021-05-09T11:17:56.995Z",
+    "links": [
+      {
+        "href": "http://localhost:3000/1",
+        "method": "GET",
+        "rel": "game-by-id"
+      },
+      {
+        "href": "http://localhost:3000/1",
+        "method": "DELETE",
+        "rel": "delete"
+      },
+      {
+        "href": "http://localhost:3000/1",
+        "method": "PUT",
+        "rel": "edit"
+      }
+    ]
   }
 ]
 ```
