@@ -1,5 +1,3 @@
-[TOC]
-
 # APIdeGames
 
 API Rest criada no curso Formação Node.js utilizada para gerenciar uma lista de games.
