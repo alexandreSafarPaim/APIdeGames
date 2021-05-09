@@ -16,6 +16,28 @@ module.exports = {
 
     async findAll(req, res) {
         const games = await Game.findAll()
+
+        //HATEOAS
+        for (const game of games) {
+            game.setDataValue('links', [{
+                    href: `http://localhost:3000/${game.id}`,
+                    method: 'GET',
+                    rel: 'find-game-by-id'
+                },
+                {
+                    href: `http://localhost:3000/${game.id}`,
+                    method: 'DELETE',
+                    rel: 'delete'
+                },
+                {
+                    href: `http://localhost:3000/${game.id}`,
+                    method: 'PUT',
+                    rel: 'edit'
+                },
+
+            ])
+        }
+
         return res.json(games);
     },
 
