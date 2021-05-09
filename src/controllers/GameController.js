@@ -7,7 +7,7 @@ module.exports = {
         try {
             const { title, year, price } = req.body;
             const game = await Game.create({ title, year, price });
-            if (game == undefined) throw new StatusError(400, 'The game cannot be added ')
+            if (game == undefined) throw new StatusError(500, 'Database Error ')
             return res.json(game);
         } catch (err) {
             return res.status(err.status).send({ error: err.message });

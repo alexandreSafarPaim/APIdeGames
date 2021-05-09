@@ -30,7 +30,10 @@ module.exports = {
 
             await User.update({ refreshToken }, { where: { id: user.id } })
 
-            res.status(200).json({ userID: user.id, token, refreshToken });
+            user.password = undefined;
+            user.refreshToken = undefined;
+
+            res.status(200).json({ user, token, refreshToken });
         } catch (err) {
             return res.status(err.status).send({ error: err.message });
         }

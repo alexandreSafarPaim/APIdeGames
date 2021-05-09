@@ -30,7 +30,7 @@ module.exports = {
     async listAll(req, res) {
         try {
             //find all users, excluding password
-            const users = await User.findAll({ attributes: { exclude: 'password' } });
+            const users = await User.findAll({ attributes: { exclude: 'password refreshToken' } });
 
             if (users == undefined) throw new StatusError(500, 'Database Error');
 
